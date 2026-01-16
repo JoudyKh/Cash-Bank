@@ -1,0 +1,2973 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cash Bank apis",
+        "contact": {
+            "name": "Yosof Bayan",
+            "url": "https://wa.me/+963967213544",
+            "email": "yosofbayan75@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/v1",
+            "description": "local Base URL"
+        },
+        {
+            "url": "https://cashbank-back.icrcompany.net/api/v1",
+            "description": "Develop Base URL"
+        }
+    ],
+    "paths": {
+        "/admin/contact-messages": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - ContactMessage"
+                ],
+                "summary": "Get a list of contact messages",
+                "operationId": "91fd0b0739acc5702289b2d74b7f5d87",
+                "parameters": [
+                    {
+                        "name": "trash",
+                        "in": "query",
+                        "description": "pass is to get the trashed objects ",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of contact messages",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ContactMessageResource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/contact-messages/{id}/force": {
+            "delete": {
+                "tags": [
+                    "Admin",
+                    "Admin - ContactMessage"
+                ],
+                "summary": "force delete a contact message",
+                "operationId": "73462d8d2ea7dc29e698d5088b7d7848",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the contact message to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact message soft deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "soft deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/contact-messages/{id}": {
+            "delete": {
+                "tags": [
+                    "Admin",
+                    "Admin - ContactMessage"
+                ],
+                "summary": "Soft delete a contact message",
+                "operationId": "d93653d43f9fc3aba4d6b7f69881fc7e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the contact message to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact message soft deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "soft deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/contact-messages/{id}/restore": {
+            "patch": {
+                "tags": [
+                    "Admin",
+                    "Admin - ContactMessage"
+                ],
+                "summary": "Restore a soft-deleted contact message",
+                "operationId": "4e5212cb40e01d181e1c8f20af24da60",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the trashed contact message to restore",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact message restored",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ContactMessageResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/infos/update": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Info"
+                ],
+                "summary": "Update Site Information",
+                "description": "Update various site information including text fields and file uploads.",
+                "operationId": "post-update-info",
+                "requestBody": {
+                    "description": "Site information data",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateInfoRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated site information.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Site information updated successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/transactions": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Transaction"
+                ],
+                "summary": "get all transactions",
+                "operationId": "717b49d75849350f2fdc8aad1e3a1b92",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "any"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "data base column name"
+                        }
+                    },
+                    {
+                        "name": "trash",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ],
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/transactions/{transaction}": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Transaction"
+                ],
+                "summary": "show one transaction",
+                "operationId": "39bd1cd6d7dfb14dcd6465651c7ac9e7",
+                "parameters": [
+                    {
+                        "name": "transaction",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Transaction"
+                ],
+                "summary": "store new transaction",
+                "operationId": "f7e08faf29cc3c01846e5e5bd6640edc",
+                "parameters": [
+                    {
+                        "name": "transaction",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/admin/users": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Users"
+                ],
+                "summary": "get all users",
+                "operationId": "bf66fd46994d8e7fd94eb8e775fa8814",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/admin/users/{user}": {
+            "delete": {
+                "tags": [
+                    "Admin",
+                    "Admin - Users"
+                ],
+                "summary": "SoftDelete an existing user",
+                "operationId": "9dfab79539c83db30dbd36385b03e4eb",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/admin/wallets/{id}": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Wallet"
+                ],
+                "summary": "show one wallet",
+                "operationId": "351882e8750316b77a525b9a0905a56b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WalletResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Wallet"
+                ],
+                "summary": "update an existing wallet",
+                "operationId": "2ba1d0cc8872347492dd24849bf04f05",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "_method",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "PUT",
+                            "enum": [
+                                "PUT"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateWalletRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WalletResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "register a new user",
+                "description": "register a new user with the provided information",
+                "operationId": "app/register",
+                "requestBody": {
+                    "description": "User data",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "phone_number",
+                                    "email",
+                                    "password",
+                                    "verification_code"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "referral_code": {
+                                        "type": "string"
+                                    },
+                                    "verification_code": {
+                                        "type": "string",
+                                        "example": "0123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contact-messages": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - ContactMessage"
+                ],
+                "summary": "Create a new contact message",
+                "operationId": "c4a42853bcce951d5fb24f29c577d469",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the person sending the message",
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "description": "The email of the person sending the message",
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "phone": {
+                                        "description": "The phone number of the person sending the message",
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "message": {
+                                        "description": "The content of the message",
+                                        "type": "string",
+                                        "example": "Hello, I would like to know more about your services."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Contact message created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ContactMessageResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/home": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Home"
+                ],
+                "summary": "",
+                "operationId": "e64bd57a1a56de07f70ba939a0bfe7c4",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/transactions": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "get all transactions",
+                "operationId": "11e1653062ed9cbaafdf09bacf28383b",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "any"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "data base column name"
+                        }
+                    },
+                    {
+                        "name": "limited",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ],
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "store new transaction",
+                "operationId": "722021fd72f5d9e61aaec7a7f04d34d5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateTransactionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/transactions/{transaction}": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "show one transaction",
+                "operationId": "c94e6a6347327949ca06be6f99a905fc",
+                "parameters": [
+                    {
+                        "name": "transaction",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/transactions/get-amount-received": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "get the amount received",
+                "operationId": "75f5b71f37fc757a3570e8ba32bb6e75",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount_sent": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/transactions/get-amount-sent": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "get the amount sent",
+                "operationId": "512e90e80a7a57f16e0b7b9e8beb804a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount_received": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/transactions/{transaction}/confirm-transform": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "confirm transformation",
+                "operationId": "86748b37122cfcfab8de51b30cddaf3e",
+                "parameters": [
+                    {
+                        "name": "transaction",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/transactions/{transaction}/cancel-transform": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Transaction"
+                ],
+                "summary": "cancel transformation",
+                "operationId": "131b34da486e23e42c3a922c77592720",
+                "parameters": [
+                    {
+                        "name": "transaction",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/wallets/logs/show": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - WalletLog"
+                ],
+                "summary": "get wallet logs",
+                "operationId": "6dfeacf7ed7a8d242f7c5b8b0cec5c24",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "Login",
+                "operationId": "app/login",
+                "requestBody": {
+                    "description": "App Login",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "johndoe"
+                                    },
+                                    "fcm_token": {
+                                        "type": "string",
+                                        "example": "#####"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "username": [
+                                                    "The username field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Login",
+                "operationId": "admin/login",
+                "requestBody": {
+                    "description": "Admin Login",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    },
+                                    "fcm_token": {
+                                        "type": "string",
+                                        "example": "#####"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "username": [
+                                                    "The username field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "get profile data ",
+                "operationId": "app/profile",
+                "parameters": [
+                    {
+                        "name": "read",
+                        "in": "query",
+                        "description": "pass it as 1 if wanted the notification to be read ",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/admin/profile": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "get profile data ",
+                "operationId": "admin/profile",
+                "parameters": [
+                    {
+                        "name": "read",
+                        "in": "query",
+                        "description": "pass it as 1 if wanted the notification to be read ",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                1,
+                                0
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/change-email": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "change email",
+                "operationId": "fa64ced3cb658272d12af14f277e7070",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangeEmailRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/admin/change-email": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "change email",
+                "operationId": "5ee71ae3ecac6c9e2723f4e6cc3a4a6c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangeEmailRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": [],
+                        "Accept": "json/application"
+                    }
+                ]
+            }
+        },
+        "/check/auth": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "Check Auth",
+                "operationId": "app/check/auth",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/check/auth": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Check Auth",
+                "operationId": "admin/check/auth",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "App Logout",
+                "operationId": "app/logout",
+                "responses": {
+                    "200": {
+                        "description": "successfully logged out"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/logout": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Admin Logout",
+                "operationId": "admin/logout",
+                "responses": {
+                    "200": {
+                        "description": "successfully logged out"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/change-password": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "Change password",
+                "operationId": "change-password",
+                "requestBody": {
+                    "description": "Change password",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully Changed password"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/change-password": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Change password",
+                "operationId": "admin/change-password",
+                "requestBody": {
+                    "description": "Change password",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully Changed password"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/reset-password": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "Reset password",
+                "operationId": "reset-password",
+                "requestBody": {
+                    "description": "Reset password",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "verification_code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully Changed password"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reset-password": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Reset password",
+                "operationId": "admin/reset-password",
+                "requestBody": {
+                    "description": "Reset password",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "verification_code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully Changed password"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/check/verification-code": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "check verification-code",
+                "operationId": "check-verification-code",
+                "requestBody": {
+                    "description": "Check verification-code",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "verification_code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "oK"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/check/verification-code": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "check verification-code",
+                "operationId": "admin/check-verification-code",
+                "requestBody": {
+                    "description": "Check verification-code",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "verification_code": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "oK"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "password": [
+                                                    "The password field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/send/verification-code": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "send verification code ",
+                "operationId": "send-verification-code",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "resetPass",
+                                "new"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "send verification-code",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully sent"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/send/verification-code": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "send verification code ",
+                "operationId": "admin/send-verification-code",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "resetPass",
+                                "new"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "send verification-code",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "yosofbayan75@gmail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successfully sent"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/update": {
+            "post": {
+                "tags": [
+                    "App",
+                    "App - Auth"
+                ],
+                "summary": "Update Profile data",
+                "description": "Update user profile with the provided information",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "description": "User data",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "johndoe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "image": {
+                                        "description": "Image file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User udpated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/profile/update": {
+            "post": {
+                "tags": [
+                    "Admin",
+                    "Admin - Auth"
+                ],
+                "summary": "Update Profile data",
+                "description": "Update Admin profile with the provided information",
+                "operationId": "admin/updateProfile",
+                "requestBody": {
+                    "description": "Admin data",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "johndoe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "_method": {
+                                        "type": "string",
+                                        "example": "PUT"
+                                    },
+                                    "image": {
+                                        "description": "Image file to upload",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Admin updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User udpated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/infos": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Info"
+                ],
+                "summary": "Get all info",
+                "operationId": "4b32435a38f42d06b767cf2f2558f1ac",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "header",
+                        "description": "The locale of the response",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "en",
+                                "ar"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/infos": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Info"
+                ],
+                "summary": "Get all admin info",
+                "operationId": "d0290deadea7d15ec9b102fb4ebee13c",
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/notifications": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Notifications",
+                    "App - Auth"
+                ],
+                "summary": "Get all notifications",
+                "operationId": "17d59a96618168da2927cdb7fbc2468a",
+                "parameters": [
+                    {
+                        "name": "is_read",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "Filter notifications by read status (0: unread, 1: read)",
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "read",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "make the notification status read or not)",
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "The type of notification",
+                            "type": "string",
+                            "enum": [
+                                "NEW_REGISTRATION",
+                                "NEW_STUDENT_EXAM",
+                                "NEW_HOMEWOTK_STUDENT",
+                                "UPDATE_HOMEWOTK_STUDENT",
+                                "NEW_ATTENDANCE"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/notifications": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Notifications",
+                    "Admin - Auth"
+                ],
+                "summary": "Get all notifications",
+                "operationId": "1df35c99893610013a4660ca03b5519e",
+                "parameters": [
+                    {
+                        "name": "is_read",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "Filter notifications by read status (0: unread, 1: read)",
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "read",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "make the notification status read or not)",
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "description": "The type of notification",
+                            "type": "string",
+                            "enum": [
+                                "NEW_REGISTRATION",
+                                "NEW_STUDENT_EXAM",
+                                "NEW_HOMEWOTK_STUDENT",
+                                "UPDATE_HOMEWOTK_STUDENT",
+                                "NEW_ATTENDANCE"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/wallets": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Wallet"
+                ],
+                "summary": "get all wallets",
+                "operationId": "d9800246431ec6fb2f58395ac585f413",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WalletResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/wallets": {
+            "get": {
+                "tags": [
+                    "Admin",
+                    "Admin - Wallet"
+                ],
+                "summary": "get all wallets",
+                "operationId": "5a8eac800587dc48c4243fca3994721e",
+                "parameters": [
+                    {
+                        "name": "trash",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ],
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WalletResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/wallets/{id}": {
+            "get": {
+                "tags": [
+                    "App",
+                    "App - Wallet"
+                ],
+                "summary": "show one wallet",
+                "operationId": "543b7cd297682687b44a5478d25b1c83",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WalletResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UpdateStatusRequest": {
+                "required": [
+                    "status"
+                ],
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "cancelled",
+                            "completed"
+                        ]
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "amount_confirmed": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateWalletRequest": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "number": {
+                        "type": "string"
+                    },
+                    "icon": {
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreContactMessageRequest": {
+                "title": "Store Contact Message Request",
+                "description": "Request body for storing a contact message",
+                "required": [
+                    "type",
+                    "first_name",
+                    "email",
+                    "phone",
+                    "message"
+                ],
+                "properties": {
+                    "first_name": {
+                        "description": "First name of the sender",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 3,
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "description": "Last name of the sender",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 3,
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "description": "Email address of the sender",
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255,
+                        "example": "john.doe@example.com"
+                    },
+                    "phone": {
+                        "description": "Phone number of the sender",
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 8,
+                        "example": "+1234567890"
+                    },
+                    "message": {
+                        "description": "Content of the message",
+                        "type": "string",
+                        "maxLength": 65535,
+                        "example": "This is a test message."
+                    }
+                },
+                "type": "object"
+            },
+            "CreateTransactionRequest": {
+                "properties": {
+                    "amount_sent": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "amount_received": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "from_wallet_id": {
+                        "type": "integer"
+                    },
+                    "to_wallet_id": {
+                        "type": "integer"
+                    },
+                    "from_wallet_number": {
+                        "type": "string"
+                    },
+                    "to_wallet_number": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ChangeEmailRequest": {
+                "required": [
+                    "email",
+                    "verification_code"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "email",
+                        "example": "email@example.com"
+                    },
+                    "verification_code": {
+                        "type": "number",
+                        "example": 10
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateInfoRequest": {
+                "title": "Update Info Request",
+                "description": "Request body for updating information",
+                "properties": {
+                    "transformation-referral_amount": {
+                        "description": "referral amount",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transaction-process_time": {
+                        "description": "Number of hours",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transaction-commission_rate": {
+                        "description": "commission rate",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "about-customer_service": {
+                        "description": "Application app store link",
+                        "type": "string",
+                        "default": "http://www.google.com",
+                        "nullable": true
+                    },
+                    "about-transfer_service": {
+                        "description": "Application app store link",
+                        "type": "string",
+                        "default": "http://www.google.com",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ContactMessageResource": {
+                "title": "ContactMessage Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john.doe@example.com"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "This is a sample message."
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-07-12T12:00:00Z",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-07-12T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-07-12T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "InfoResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "key": {
+                        "type": "string",
+                        "example": "exampleKey"
+                    },
+                    "super_key": {
+                        "type": "string",
+                        "example": "exampleSuperKey"
+                    },
+                    "value": {
+                        "properties": {
+                            "en": {
+                                "type": "string",
+                                "example": "exampleValueEN"
+                            },
+                            "ar": {
+                                "type": "string",
+                                "example": "exampleValueAR"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T00:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-01-01T00:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationResource": {
+                "title": "NotificationResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "TransactionResource": {
+                "title": "TransactionResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UserWalletLogResource": {
+                "title": "UserWalletLogResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UserWalletResource": {
+                "title": "UserWalletResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "WalletResource": {
+                "title": "WalletResource",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "headers": {
+            "Accept": {
+                "description": "Header indicating the expected response format. Should be set to 'application/json'.",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "application/json"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admin",
+            "description": "Admin"
+        },
+        {
+            "name": "Admin - ContactMessage",
+            "description": "Admin - ContactMessage"
+        },
+        {
+            "name": "Admin - Info",
+            "description": "Admin - Info"
+        },
+        {
+            "name": "Admin - Transaction",
+            "description": "Admin - Transaction"
+        },
+        {
+            "name": "Admin - Users",
+            "description": "Admin - Users"
+        },
+        {
+            "name": "Admin - Wallet",
+            "description": "Admin - Wallet"
+        },
+        {
+            "name": "App",
+            "description": "App"
+        },
+        {
+            "name": "App - Auth",
+            "description": "App - Auth"
+        },
+        {
+            "name": "App - ContactMessage",
+            "description": "App - ContactMessage"
+        },
+        {
+            "name": "App - Home",
+            "description": "App - Home"
+        },
+        {
+            "name": "App - Transaction",
+            "description": "App - Transaction"
+        },
+        {
+            "name": "App - WalletLog",
+            "description": "App - WalletLog"
+        },
+        {
+            "name": "Admin - Auth",
+            "description": "Admin - Auth"
+        },
+        {
+            "name": "App - Info",
+            "description": "App - Info"
+        },
+        {
+            "name": "App - Notifications",
+            "description": "App - Notifications"
+        },
+        {
+            "name": "Admin - Notifications",
+            "description": "Admin - Notifications"
+        },
+        {
+            "name": "App - Wallet",
+            "description": "App - Wallet"
+        }
+    ]
+}
